@@ -77,9 +77,13 @@
 
 <script>
   "use strict";
-  var popUp = document.getElementById("prevent-form-submission-form");
-  var formButton = document.getElementById("prevent-form-submission-button");
+  var popUp = document.getElementById("favorite-color-field");
+  var colorForm = document.getElementById("prevent-form-submission-form");
 
+  colorForm.addEventListener('submit', function(evt){
+    evt.preventDefault();
+    alert(popUp.value);
+  });
 
 </script>
 
@@ -103,17 +107,23 @@
 <script>
   "use strict";
 
-//  Here's a stub of a function you can use!
+ function reverseString(evt) {
+   var msg = "Porcupines are cute";
+   var newMsg = "This should be the reversed string";
+   var msgChar = msg.split('');
 
-//  function reverseString(evt) {
-//    var msg = "Porcupines are cute";
-//
-//    // do some stuff here to reverse that string into a new variable
-//    var newMsg = "This should be the reversed string";
-//
-//    alert(newMsg);
-//  }
+   //for (var i = 0; i < msgChar.length; i++)
+   // thought about reversing in a for loop then gave up on figuring out indexing
+   // https://medium.freecodecamp.com/how-to-reverse-a-string-in-javascript-in-3-different-ways-75e4763c68cb
 
+   msgChar.reverse();
+   newMsg = msgChar.join('');
+
+   alert(newMsg);
+ }
+
+ var reverseButton = document.getElementById("reverse-string-button");
+ reverseButton.addEventListener('click', reverseString);
 
 </script>
 
@@ -134,8 +144,23 @@
 
 <script>
   "use strict";
-  // code here for above problem
-  // if user enters 5, result will be 1 + 2 + 3 + 4 + 5 = 15
+  // SIGH
+  var sum = document.getElementById("sum-to-n");
+  var n = document.getElementById("sum-to-n-field");
+  var result = document.getElementById("sum-to-n-result")
+
+  function recurse(n) {
+    if (n === 1) {
+        return 1
+    }
+    return n + recurse(n - 1);
+  }
+
+  sum.addEventListener('submit', function(evt) {
+    evt.preventDefault();
+    var sumN = recurse(parseInt(n.value));
+    result.innerHTML = sumN
+  });
 
 </script>
 
