@@ -5,6 +5,7 @@
   <title>Skills JavaScript</title>
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="static/styles.css">
+  <script src="https://code.jquery.com/jquery.js"></script>
 </head>
 <body class="container">
 
@@ -192,7 +193,9 @@
 
 <script>
   "use strict";
-  // put your code here
+  $("#kittenz-rule").on("dblclick", function() {
+    $("#kittenz-rule").attr("src", "http://i.imgur.com/OGZqA6t.jpg")
+  });
 </script>
 
 <div class="hint">
@@ -223,7 +226,45 @@
 
 <script>
   "use strict";
-  // put your code here
+
+  var guessMsg = $("#number-guessing-msg")
+
+  function gameLogic(num, randomNum) {
+    if (num < randomNum) {
+        guessMsg.html("Your guess is too low!");
+        return false;
+    } else if (num > randomNum) {
+        guessMsg.html("Your guess is too high!");
+        return false;
+    } else {
+        guessMsg.html("You guessed the number! " + randomNum);
+        return true;
+    }
+  }
+
+  function guessingGame() {
+    $("#play-guessing-game").prop("disabled", true);
+    $("#number-guessed").prop("disabled", false);
+    $("#try-this-number").prop("disabled", false);
+
+    var randomNum = Math.floor(Math.random() * (100)) + 1;
+    var num = Number($("#number-guessed").value);
+
+    $("#try-this-number").on("submit", function(evt) {
+        evt.preventDefault();
+        while (randomNum !== num) {
+            gameLogic(num, randomNum);
+        }
+        $("#play-guessing-game").prop("disabled", false);
+        $("#number-guessed").prop("disabled", true);
+        $("#try-this-number").prop("disabled", true);
+    });
+
+
+  }
+
+  $("#play-guessing-game").on("click", guessingGame);
+
 </script>
 
 
